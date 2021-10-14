@@ -1,10 +1,10 @@
 from tkinter import *
+from conditions import *
 import random
 
 root = Tk()
-root.title('Criss-cross')
+root.title('TicTacToe')
 game_run = True
-field = []
 cross_count = 0
 
 
@@ -30,22 +30,6 @@ def click(row, col):
             check_win('O')
 
 
-def conditions_row(i, j):
-    return field[i][j], field[i][j + 1], field[i][j + 2], field[i][j + 3], field[i][j + 4]
-
-
-def conditions_col(i, j):
-    return field[j][i], field[j + 1][i], field[j + 2][i], field[j + 3][i], field[j + 4][i]
-
-
-def conditions_ldiag(i, j):
-    return field[i][j], field[i + 1][j + 1], field[i + 2][j + 2], field[i + 3][j + 3], field[i + 4][j + 4]
-
-
-def conditions_rdiag(i, j):
-    return field[i][j + 4], field[i + 1][j + 3], field[i + 2][j + 2], field[i + 3][j + 1], field[i + 4][j]
-
-
 def check_win(smb):
     for i in range(10):
         for j in range(6):
@@ -53,9 +37,9 @@ def check_win(smb):
             check_line(*conditions_col(i, j), smb)
     for i in range(6):
         for j in range(6):
-            check_line(*conditions_ldiag(i, j),
+            check_line(*conditions_left_diagonal(i, j),
                        smb)
-            check_line(*conditions_rdiag(i, j),
+            check_line(*conditions_right_diagonal(i, j),
                        smb)
 
 
@@ -106,16 +90,16 @@ def computer_move():
 
     for i in range(6):
         for j in range(6):
-            if can_win(*conditions_ldiag(i, j),
+            if can_win(*conditions_left_diagonal(i, j),
                        'O'):
                 return
-            if can_win(*conditions_rdiag(i, j),
+            if can_win(*conditions_right_diagonal(i, j),
                        'O'):
                 return
-            if can_win(*conditions_ldiag(i, j),
+            if can_win(*conditions_left_diagonal(i, j),
                        'X'):
                 return
-            if can_win(*conditions_rdiag(i, j),
+            if can_win(*conditions_right_diagonal(i, j),
                        'X'):
                 return
 
