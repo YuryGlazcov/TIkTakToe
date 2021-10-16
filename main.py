@@ -2,25 +2,23 @@ from AI import *
 from conditions import *
 from tkinter import *
 
-root = Tk()
-root.title('TicTacToe')
 global game_run
 game_run = True
 cross_count = 0
 
 
-def new_game():
+def new_game():  # Начало новой игры.
     for row in range(10):
         for col in range(10):
             field[row][col]['text'] = ' '
-            field[row][col]['background'] = 'lavender'
+            field[row][col]['background'] = 'lightgray'
     global game_run
     game_run = True
     global cross_count
     cross_count = 0
 
 
-def click(row, col):
+def click(row, col):  # Отработка нажатий
     if game_run and field[row][col]['text'] == ' ':
         field[row][col]['text'] = 'X'
         global cross_count
@@ -31,7 +29,7 @@ def click(row, col):
             check_win('O')
 
 
-def check_win(smb):
+def check_win(smb):  # Проверка на победу
     for i in range(10):
         for j in range(6):
             check_line(*conditions_row(i, j), smb)
@@ -44,23 +42,29 @@ def check_win(smb):
                        smb)
 
 
-def check_line(a1, a2, a3, a4, a5, smb):
+def check_line(a1, a2, a3, a4, a5, smb):  # В случае победной серии выделяется победная серия и игра завершается
     if a1['text'] == smb and a2['text'] == smb and a3['text'] == smb and a4['text'] == smb and a5['text'] == smb:
-        a1['background'] = a2['background'] = a3['background'] = a4['background'] = a5['background'] = 'blue'
+        a1['background'] = a2['background'] = a3['background'] = a4['background'] = a5['background'] = 'gold'
         global game_run
         game_run = False
 
 
-for row in range(10):
-    line = []
-    for col in range(10):
-        button = Button(root, text=' ', width=4, height=2,
-                        font=('Verdana', 20, 'bold'),
-                        background='lavender',
-                        command=lambda row=row, col=col: click(row, col))
-        button.grid(row=row, column=col, sticky='nsew')
-        line.append(button)
-    field.append(line)
-new_button = Button(root, text='new game', command=new_game)
-new_button.grid(row=10, column=0, columnspan=10, sticky='nsew')
-root.mainloop()
+def print_game():  # отрисовка игрового поля
+    root = Tk()
+    root.title('TicTacToe')
+    for row in range(10):
+        line = []
+        for col in range(10):
+            button = Button(root, text=' ', width=4, height=2,
+                            font=('ComicSans', 20, 'italic'),
+                            background='lightgray',
+                            command=lambda row=row, col=col: click(row, col))
+            button.grid(row=row, column=col, sticky='nsew')
+            line.append(button)
+        field.append(line)
+    new_button = Button(root, text='Новая игра', background='pink', command=new_game)
+    new_button.grid(row=10, column=0, columnspan=10, sticky='nsew')
+    root.mainloop()
+
+
+print_game()
