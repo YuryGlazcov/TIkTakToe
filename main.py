@@ -1,5 +1,4 @@
 from AI import *
-from conditions import *
 from tkinter import *
 
 global game_run
@@ -18,13 +17,13 @@ def new_game():  # Начало новой игры.
     cross_count = 0
 
 
-def click(row, col):  # Отработка нажатий
+def click(row, col):  # Отработка нажатий и счетчик ходов
     if game_run and field[row][col]['text'] == ' ':
         field[row][col]['text'] = 'X'
         global cross_count
         cross_count += 1
         check_win('X')
-        if game_run and cross_count < 99:
+        if game_run and cross_count < 49:
             computer_move()
             check_win('O')
 
@@ -55,7 +54,7 @@ def print_game():  # отрисовка игрового поля
     for row in range(10):
         line = []
         for col in range(10):
-            button = Button(root, text=' ', width=4, height=2,
+            button = Button(root, text=' ', width=2, height=1,
                             font=('ComicSans', 20, 'italic'),
                             background='lightgray',
                             command=lambda row=row, col=col: click(row, col))
