@@ -2,8 +2,8 @@ from AI import *
 from tkinter import *
 
 global game_run
-game_run = True
-cross_count = 0
+game_run = True     # Переменная отвечающая за проведение игры. При значении False ходы становятся недоступными.
+cross_count = 0     # Счетчик крестиков
 
 
 def new_game():  # Начало новой игры.
