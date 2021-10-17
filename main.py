@@ -17,15 +17,17 @@ def new_game():  # Начало новой игры.
     cross_count = 0
 
 
-def click(row, col):  # Отработка нажатий и счетчик ходов
+def click(row, col):  # Отработка нажатий. При ничьей инициализирует новую игру
     if game_run and field[row][col]['text'] == ' ':
         field[row][col]['text'] = 'X'
         global cross_count
         cross_count += 1
         check_win('X')
-        if game_run and cross_count < 49:
+        if game_run and cross_count < 51:
             computer_move()
             check_win('O')
+        if cross_count == 51:
+            new_game()
 
 
 def check_win(smb):  # Проверка на победу
